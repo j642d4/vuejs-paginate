@@ -31,12 +31,9 @@ export default {
       type: Number,
       required: true
     },
-    initialPage: {
+    selected: {
       type: Number,
       default: 0
-    },
-    forcePage: {
-      type: Number
     },
     clickHandler: {
       type: Function,
@@ -90,17 +87,6 @@ export default {
     noLiSurround: {
       type: Boolean,
       default: false
-    }
-  },
-  data() {
-    return {
-      selected: this.initialPage
-    }
-  },
-  beforeUpdate() {
-    if (this.forcePage === undefined) return
-    if (this.forcePage !== this.selected) {
-      this.selected = this.forcePage
     }
   },
   computed: {
@@ -188,23 +174,15 @@ export default {
     handlePageSelected(selected) {
       if (this.selected === selected) return
 
-      this.selected = selected
-
-      this.clickHandler(this.selected + 1)
+      this.clickHandler(selected + 1)
     },
     prevPage() {
       if (this.selected <= 0) return
-
-      this.selected--
-
-      this.clickHandler(this.selected + 1)
+      this.clickHandler(this.selected)
     },
     nextPage() {
       if (this.selected >= this.pageCount - 1) return
-
-      this.selected++
-
-      this.clickHandler(this.selected + 1)
+      this.clickHandler(this.selected + 2)
     },
     firstPageSelected() {
       return this.selected === 0
